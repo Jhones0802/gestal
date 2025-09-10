@@ -99,4 +99,22 @@ class Empleado extends Model
     {
         return $query->where('cargo', $cargo);
     }
+
+    public function afiliaciones()
+    {
+        return $this->hasMany(Afiliacion::class);
+    }
+
+    public function tieneAfiliacionCompleta(): bool
+    {
+        $tiposRequeridos = ['eps', 'arl', 'caja_compensacion', 'fondo_pensiones'];
+        $completadas = $this->afiliaciones()->where('estado', 'completada')->pluck('entidad_tipo')->toArray();
+        
+        return count(array_intersect($tiposRequeridos, $completadas)) === count($tiposRequeridos);
+    }
+
+    public function getAfiliacionesPendientes()
+    {
+        return $this->afiliaciones()->pendientes()->get();
+    }
 }

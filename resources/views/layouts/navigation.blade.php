@@ -24,6 +24,12 @@
                         <x-nav-link :href="route('vacantes.index')" :active="request()->routeIs('vacantes.*') || request()->routeIs('candidatos.*')">
                             {{ __('Selección') }}
                         </x-nav-link>
+
+                        @can('role', 'admin,analista_rh')
+                            <x-nav-link :href="route('afiliaciones.index')" :active="request()->routeIs('afiliaciones.*')">
+                                {{ __('Afiliaciones') }}
+                            </x-nav-link>
+                        @endcan
                         
                         <x-nav-link :href="'#'" :active="request()->routeIs('nomina.*')">
                             {{ __('Nómina') }}
@@ -100,6 +106,12 @@
                 <x-responsive-nav-link :href="route('vacantes.index')" :active="request()->routeIs('vacantes.*') || request()->routeIs('candidatos.*')">
                     {{ __('Selección') }}
                 </x-responsive-nav-link>
+
+                @can('role', 'admin,analista_rh')
+                    <x-responsive-nav-link :href="route('afiliaciones.index')" :active="request()->routeIs('afiliaciones.*')">
+                        {{ __('Afiliaciones') }}
+                    </x-responsive-nav-link>
+                @endcan
                 
                 <x-responsive-nav-link :href="'#'" :active="request()->routeIs('nomina.*')">
                     {{ __('Nómina') }}
