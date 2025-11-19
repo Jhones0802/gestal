@@ -1,5 +1,9 @@
 <x-guest-layout>
-    <form method="POST" action="{{ route('password.store') }}">
+    <div class="text-center mb-4">
+        <h2 class="text-xl font-bold text-gray-800">Recuperar Contraseña</h2>
+    </div>
+
+    <form method="POST" action="{{ route('password.store') }}" class="mt-6">
         @csrf
 
         <!-- Password Reset Token -->

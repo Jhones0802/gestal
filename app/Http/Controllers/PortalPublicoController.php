@@ -16,7 +16,10 @@ class PortalPublicoController extends Controller
     public function index(Request $request)
     {
         $query = Vacante::where('estado', 'publicada')
-                        ->where('fecha_cierre', '>=', now()->toDateString());
+                        ->where(function($q) {
+                            $q->whereNull('fecha_cierre')
+                              ->orWhere('fecha_cierre', '>=', now()->toDateString());
+                        });
 
         // Filtros públicos
         if ($request->filled('area')) {
@@ -61,7 +64,8 @@ class PortalPublicoController extends Controller
     public function show(Vacante $vacante)
     {
         // Verificar que la vacante esté publicada y activa
-        if ($vacante->estado !== 'publicada' || $vacante->fecha_cierre < now()->toDateString()) {
+        if ($vacante->estado !== 'publicada' ||
+            ($vacante->fecha_cierre && $vacante->fecha_cierre < now()->toDateString())) {
             abort(404, 'Esta vacante ya no está disponible');
         }
 
@@ -77,7 +81,8 @@ class PortalPublicoController extends Controller
     public function aplicar(Vacante $vacante)
     {
         // Verificar que la vacante esté disponible
-        if ($vacante->estado !== 'publicada' || $vacante->fecha_cierre < now()->toDateString()) {
+        if ($vacante->estado !== 'publicada' ||
+            ($vacante->fecha_cierre && $vacante->fecha_cierre < now()->toDateString())) {
             return redirect()->route('portal.index')
                            ->with('error', 'Esta vacante ya no está disponible para aplicaciones.');
         }
@@ -91,7 +96,8 @@ class PortalPublicoController extends Controller
     public function store(Request $request, Vacante $vacante)
     {
         // Verificar que la vacante esté disponible
-        if ($vacante->estado !== 'publicada' || $vacante->fecha_cierre < now()->toDateString()) {
+        if ($vacante->estado !== 'publicada' ||
+            ($vacante->fecha_cierre && $vacante->fecha_cierre < now()->toDateString())) {
             return redirect()->route('portal.index')
                            ->with('error', 'Esta vacante ya no está disponible para aplicaciones.');
         }
@@ -228,7 +234,10 @@ class PortalPublicoController extends Controller
     public function buscar(Request $request)
     {
         $query = Vacante::where('estado', 'publicada')
-                        ->where('fecha_cierre', '>=', now()->toDateString());
+                        ->where(function($q) {
+                            $q->whereNull('fecha_cierre')
+                              ->orWhere('fecha_cierre', '>=', now()->toDateString());
+                        });
 
         if ($request->filled('q')) {
             $busqueda = $request->q;

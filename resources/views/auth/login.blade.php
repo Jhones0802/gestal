@@ -1,17 +1,11 @@
 <x-guest-layout>
-    <div class="min-h-screen flex items-center justify-center bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
-        <div class="max-w-md w-full space-y-8">
-            <div class="text-center">
-                <h2 class="mt-6 text-3xl font-extrabold text-gray-900">
-                    Sistema de Gestión de Talento Humano
-                </h2>
-                <p class="mt-2 text-sm text-gray-600">
-                    Localizamos TSA S.A.S
-                </p>
-            </div>
+    <div class="text-center mb-6">
+        <h2 class="text-2xl font-bold text-gray-800">GESTAL RRHH</h2>
+        <p class="text-sm text-gray-600 mt-1">Sistema de Gestión de Recursos Humanos</p>
+    </div>
 
-            <!-- Session Status -->
-            <x-auth-session-status class="mb-4" :status="session('status')" />
+    <!-- Session Status -->
+    <x-auth-session-status class="mb-4" :status="session('status')" />
 
             <form method="POST" action="{{ route('login') }}" class="mt-8 space-y-6">
                 @csrf

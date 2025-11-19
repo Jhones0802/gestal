@@ -41,25 +41,25 @@
                             <h3 class="text-lg font-semibold mb-4">Accesos Rápidos</h3>
                             @if($user->isAdmin() || $user->isAnalista())
                                 <div class="space-y-2">
-                                    <a href="#" class="flex items-center p-2 text-gray-700 rounded hover:bg-gray-100">
+                                    <a href="{{ route('empleados.index') }}" class="flex items-center p-2 text-gray-700 rounded hover:bg-gray-100">
                                         <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197m13.5-9a2.5 2.5 0 11-5 0 2.5 2.5 0 015 0z"></path>
                                         </svg>
                                         Gestión de Empleados
                                     </a>
-                                    <a href="#" class="flex items-center p-2 text-gray-700 rounded hover:bg-gray-100">
+                                    <a href="{{ route('vacantes.index') }}" class="flex items-center p-2 text-gray-700 rounded hover:bg-gray-100">
                                         <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18 9v3m0 0v3m0-3h3m-3 0h-3m-2-5a4 4 0 11-8 0 4 4 0 018 0zM3 20a6 6 0 0112 0v1H3v-1z"></path>
                                         </svg>
                                         Selección y Contratación
                                     </a>
-                                    <a href="#" class="flex items-center p-2 text-gray-700 rounded hover:bg-gray-100">
+                                    <a href="{{ route('nomina.index') }}" class="flex items-center p-2 text-gray-700 rounded hover:bg-gray-100">
                                         <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 9V7a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2m2 4h10a2 2 0 002-2v-6a2 2 0 00-2-2H9a2 2 0 00-2 2v6a2 2 0 002 2zm7-5a2 2 0 11-4 0 2 2 0 014 0z"></path>
                                         </svg>
                                         Liquidación de Nómina
                                     </a>
-                                    <a href="#" class="flex items-center p-2 text-gray-700 rounded hover:bg-gray-100">
+                                    <a href="{{ route('capacitaciones.index') }}" class="flex items-center p-2 text-gray-700 rounded hover:bg-gray-100">
                                         <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.746 0 3.332.477 4.5 1.253v13C19.832 18.477 18.246 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path>
                                         </svg>

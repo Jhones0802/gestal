@@ -73,7 +73,7 @@ class VacanteController extends Controller
         ]);
 
         $validated['created_by'] = Auth::id();
-        $validated['estado'] = 'borrador';
+        $validated['estado'] = 'publicada';
 
         Vacante::create($validated);
 

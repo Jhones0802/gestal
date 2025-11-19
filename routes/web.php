@@ -6,10 +6,12 @@ use App\Http\Controllers\EmpleadoController;
 use App\Http\Controllers\VacanteController;
 use App\Http\Controllers\CandidatoController;
 use App\Http\Controllers\ProcesoSeleccionController;
-use App\Http\Controllers\PortalPublicoController; 
+use App\Http\Controllers\PortalPublicoController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AfiliacionController;
 use App\Http\Controllers\NominaController;
+use App\Http\Controllers\CapacitacionController;
+use App\Http\Controllers\ReporteController;
 
 Route::get('/', function () {
     return redirect()->route('login');
@@ -64,6 +66,21 @@ Route::middleware('auth')->group(function () {
         Route::post('afiliaciones/{afiliacion}/enviar', [AfiliacionController::class, 'enviar'])->name('afiliaciones.enviar');
         Route::post('afiliaciones/{afiliacion}/completar', [AfiliacionController::class, 'completar'])->name('afiliaciones.completar');
         Route::get('afiliaciones/{afiliacion}/certificado', [AfiliacionController::class, 'descargarCertificado'])->name('afiliaciones.certificado');
+
+        // Capacitaciones
+        Route::resource('capacitaciones', CapacitacionController::class);
+        Route::post('capacitaciones/{capacitacion}/inscribir', [CapacitacionController::class, 'inscribirEmpleado'])->name('capacitaciones.inscribir');
+        Route::post('capacitaciones/{capacitacion}/cancelar', [CapacitacionController::class, 'cancelar'])->name('capacitaciones.cancelar');
+        Route::post('capacitaciones/{capacitacion}/iniciar', [CapacitacionController::class, 'iniciar'])->name('capacitaciones.iniciar');
+        Route::post('capacitaciones/{capacitacion}/completar', [CapacitacionController::class, 'completar'])->name('capacitaciones.completar');
+        Route::post('capacitaciones/{capacitacion}/recordatorios', [CapacitacionController::class, 'enviarRecordatorios'])->name('capacitaciones.recordatorios');
+
+        // Reportes
+        Route::get('reportes', [ReporteController::class, 'index'])->name('reportes.index');
+        Route::get('reportes/empleados', [ReporteController::class, 'empleados'])->name('reportes.empleados');
+        Route::get('reportes/nomina', [ReporteController::class, 'nomina'])->name('reportes.nomina');
+        Route::get('reportes/capacitaciones', [ReporteController::class, 'capacitaciones'])->name('reportes.capacitaciones');
+        Route::get('reportes/seleccion', [ReporteController::class, 'seleccion'])->name('reportes.seleccion');
     });
     
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');

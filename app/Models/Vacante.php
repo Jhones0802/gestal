@@ -23,14 +23,20 @@ class Vacante extends Model
     'nivel_educativo',
     'habilidades_requeridas',
     'responsabilidades',
+    'requisitos',           // Added
+    'competencias',         // Added
     'beneficios',
     'fecha_cierre',
     'prioridad',
     'estado',
     'observaciones',
-    'visualizaciones',      // Nuevo
-    'aplicaciones',         // Nuevo
-    'fecha_publicacion',    // Nuevo
+    'visualizaciones',
+    'aplicaciones',
+    'fecha_publicacion',
+    'vacantes_disponibles', // Added
+    'contacto_responsable', // Added
+    'proceso_seleccion',    // Added
+    'documentos_requeridos', // Added
     'created_by',
     'updated_by'
 ];
