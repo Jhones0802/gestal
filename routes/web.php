@@ -9,6 +9,7 @@ use App\Http\Controllers\ProcesoSeleccionController;
 use App\Http\Controllers\PortalPublicoController; 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AfiliacionController;
+use App\Http\Controllers\NominaController;
 
 Route::get('/', function () {
     return redirect()->route('login');
@@ -47,7 +48,15 @@ Route::middleware('auth')->group(function () {
         Route::resource('proceso-seleccion', ProcesoSeleccionController::class);
         Route::post('proceso-seleccion/{procesoSeleccion}/calificar', [ProcesoSeleccionController::class, 'calificar'])->name('proceso-seleccion.calificar');
         
-         // Afiliaciones de Seguridad Social
+        // Nóminas
+        Route::resource('nomina', NominaController::class);
+        Route::post('nomina/{nomina}/calcular', [NominaController::class, 'calcular'])->name('nomina.calcular');
+        Route::post('nomina/{nomina}/aprobar', [NominaController::class, 'aprobar'])->name('nomina.aprobar');
+        Route::post('nomina/{nomina}/pagar', [NominaController::class, 'pagar'])->name('nomina.pagar');
+        Route::post('nomina/{nomina}/anular', [NominaController::class, 'anular'])->name('nomina.anular');
+        Route::get('nomina/{nomina}/desprendible', [NominaController::class, 'desprendible'])->name('nomina.desprendible');
+        
+        // Afiliaciones de Seguridad Social
         Route::resource('afiliaciones', AfiliacionController::class)->parameters([
             'afiliaciones' => 'afiliacion'
         ]);
@@ -64,5 +73,11 @@ Route::middleware('auth')->group(function () {
 
     
 });
+
+
+// Documentación de APIs
+Route::get('/api/documentacion', function () {
+    return view('api.documentacion');
+})->name('api.documentacion');
 
 require __DIR__.'/auth.php';

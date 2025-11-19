@@ -1,0 +1,426 @@
+{
+	"info": {
+		"_postman_id": "gestal-apis-2025",
+		"name": "GESTAL RRHH - APIs",
+		"description": "Colección de APIs simuladas para el sistema de gestión de talento humano GESTAL",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "API 1 - Entidades Seguridad Social",
+			"item": [
+				{
+					"name": "Enviar Solicitud de Afiliación",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"afiliacion_id\": 1,\n    \"entidad_tipo\": \"eps\",\n    \"empleado\": {\n        \"nombres\": \"Juan Carlos\",\n        \"apellidos\": \"Pérez Gómez\",\n        \"cedula\": \"1234567890\",\n        \"fecha_nacimiento\": \"1990-05-15\"\n    },\n    \"documentos\": [\n        \"cedula.pdf\",\n        \"carta_laboral.pdf\",\n        \"formulario_afiliacion.pdf\"\n    ]\n}"
+						},
+						"url": {
+							"raw": "http://localhost:8000/api/entidades/afiliaciones",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"entidades",
+								"afiliaciones"
+							]
+						},
+						"description": "Simula el envío de una solicitud de afiliación a una entidad de seguridad social (EPS, ARL, Caja, Fondo)"
+					},
+					"response": []
+				},
+				{
+					"name": "Consultar Estado de Afiliación",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8000/api/entidades/afiliaciones/EPS-20250910-7823",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"entidades",
+								"afiliaciones",
+								"EPS-20250910-7823"
+							]
+						},
+						"description": "Consulta el estado actual de una solicitud de afiliación usando el número de radicado"
+					},
+					"response": []
+				},
+				{
+					"name": "Aprobar Afiliación",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{}"
+						},
+						"url": {
+							"raw": "http://localhost:8000/api/entidades/afiliaciones/EPS-20250910-7823/aprobar",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"entidades",
+								"afiliaciones",
+								"EPS-20250910-7823",
+								"aprobar"
+							]
+						},
+						"description": "Simula la aprobación de una afiliación por parte de la entidad y genera el certificado"
+					},
+					"response": []
+				},
+				{
+					"name": "Webhook - Notificación Estado",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"numero_radicado\": \"EPS-20250910-7823\",\n    \"estado\": \"aprobada\",\n    \"observaciones\": \"Afiliación aprobada exitosamente\"\n}"
+						},
+						"url": {
+							"raw": "http://localhost:8000/api/entidades/webhook/estado",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"entidades",
+								"webhook",
+								"estado"
+							]
+						},
+						"description": "Webhook para que la entidad externa notifique cambios de estado"
+					},
+					"response": []
+				}
+			],
+			"description": "API para integración con entidades de seguridad social (EPS, ARL, Cajas de Compensación, Fondos de Pensiones)"
+		},
+		{
+			"name": "API 2 - Pagos y Nómina Electrónica",
+			"item": [
+				{
+					"name": "Dispersar Nómina",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"empresa_nit\": \"900123456-7\",\n    \"periodo\": \"2025-09\",\n    \"fecha_pago\": \"2025-09-30\",\n    \"cuenta_debito\": \"1234567890\",\n    \"empleados\": [\n        {\n            \"cedula\": \"1234567890\",\n            \"nombres\": \"Juan\",\n            \"apellidos\": \"Pérez\",\n            \"cuenta_bancaria\": \"9876543210\",\n            \"banco\": \"Bancolombia\",\n            \"tipo_cuenta\": \"ahorros\",\n            \"valor\": 2500000\n        },\n        {\n            \"cedula\": \"9876543210\",\n            \"nombres\": \"María\",\n            \"apellidos\": \"González\",\n            \"cuenta_bancaria\": \"1122334455\",\n            \"banco\": \"Davivienda\",\n            \"tipo_cuenta\": \"corriente\",\n            \"valor\": 3200000\n        }\n    ]\n}"
+						},
+						"url": {
+							"raw": "http://localhost:8000/api/banco/nomina/dispersar",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"banco",
+								"nomina",
+								"dispersar"
+							]
+						},
+						"description": "Envía un lote de nómina al banco para dispersión de pagos a empleados"
+					},
+					"response": []
+				},
+				{
+					"name": "Consultar Lote de Nómina",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8000/api/banco/nomina/lote/LOTE-20250910-A7F3G9K2",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"banco",
+								"nomina",
+								"lote",
+								"LOTE-20250910-A7F3G9K2"
+							]
+						},
+						"description": "Consulta el estado de procesamiento de un lote de nómina"
+					},
+					"response": []
+				},
+				{
+					"name": "Consultar Transacción Individual",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8000/api/banco/nomina/transaccion/TRX-20250910143000-5678",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"banco",
+								"nomina",
+								"transaccion",
+								"TRX-20250910143000-5678"
+							]
+						},
+						"description": "Consulta el estado de una transacción específica"
+					},
+					"response": []
+				},
+				{
+					"name": "Validar Cuenta Bancaria",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"numero_cuenta\": \"9876543210\",\n    \"tipo_cuenta\": \"ahorros\",\n    \"banco\": \"Bancolombia\",\n    \"cedula_titular\": \"1234567890\"\n}"
+						},
+						"url": {
+							"raw": "http://localhost:8000/api/banco/validar-cuenta",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"banco",
+								"validar-cuenta"
+							]
+						},
+						"description": "Valida que una cuenta bancaria esté activa y pertenezca al titular indicado"
+					},
+					"response": []
+				},
+				{
+					"name": "Consultar Saldo Disponible",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8000/api/banco/saldo?cuenta=1234567890&empresa_nit=900123456-7",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"banco",
+								"saldo"
+							],
+							"query": [
+								{
+									"key": "cuenta",
+									"value": "1234567890"
+								},
+								{
+									"key": "empresa_nit",
+									"value": "900123456-7"
+								}
+							]
+						},
+						"description": "Consulta el saldo disponible en la cuenta de la empresa para dispersión"
+					},
+					"response": []
+				},
+				{
+					"name": "Revertir Dispersión",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"lote_id\": \"LOTE-20250910-A7F3G9K2\",\n    \"motivo\": \"Error en cálculo de nómina, requiere corrección\"\n}"
+						},
+						"url": {
+							"raw": "http://localhost:8000/api/banco/nomina/revertir",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"banco",
+								"nomina",
+								"revertir"
+							]
+						},
+						"description": "Revierte una dispersión de nómina completa"
+					},
+					"response": []
+				},
+				{
+					"name": "Webhook - Notificación Transacción",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"lote_id\": \"LOTE-20250910-A7F3G9K2\",\n    \"numero_transaccion\": \"TRX-20250910143000-5678\",\n    \"estado\": \"exitosa\",\n    \"valor\": 2500000\n}"
+						},
+						"url": {
+							"raw": "http://localhost:8000/api/banco/webhook/transaccion",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"banco",
+								"webhook",
+								"transaccion"
+							]
+						},
+						"description": "Webhook para notificaciones del banco sobre transacciones"
+					},
+					"response": []
+				}
+			],
+			"description": "API para dispersión de pagos de nómina a través de entidades bancarias"
+		},
+		{
+			"name": "Utilidades",
+			"item": [
+				{
+					"name": "Ping - Verificar API",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8000/api/ping",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"ping"
+							]
+						},
+						"description": "Verifica que el servidor API esté funcionando"
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"variable": [
+		{
+			"key": "base_url",
+			"value": "http://localhost:8000/api",
+			"type": "string"
+		}
+	]
+}

@@ -31,9 +31,11 @@
                             </x-nav-link>
                         @endcan
                         
-                        <x-nav-link :href="'#'" :active="request()->routeIs('nomina.*')">
-                            {{ __('Nómina') }}
-                        </x-nav-link>
+                        @can('role', 'admin,analista_rh')
+                            <x-nav-link :href="route('nomina.index')" :active="request()->routeIs('nomina.*')">
+                                {{ __('Nómina') }}
+                            </x-nav-link>
+                        @endcan
                         
                         <x-nav-link :href="'#'" :active="request()->routeIs('capacitaciones.*')">
                             {{ __('Capacitaciones') }}
@@ -113,9 +115,11 @@
                     </x-responsive-nav-link>
                 @endcan
                 
-                <x-responsive-nav-link :href="'#'" :active="request()->routeIs('nomina.*')">
-                    {{ __('Nómina') }}
-                </x-responsive-nav-link>
+                @can('role', 'admin,analista_rh')
+                    <x-responsive-nav-link :href="route('nomina.index')" :active="request()->routeIs('nomina.*')">
+                        {{ __('Nómina') }}
+                    </x-responsive-nav-link>
+                @endcan
                 
                 <x-responsive-nav-link :href="'#'" :active="request()->routeIs('capacitaciones.*')">
                     {{ __('Capacitaciones') }}
